@@ -22,7 +22,7 @@ public class Contacts {
 	private Boolean favorite=false;
 	private String websitelink;
 	private String linkedinlink;
-	
+	private String cloudinarypublicid;
 	@ManyToOne
 	private User user;
 	

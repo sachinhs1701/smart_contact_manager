@@ -3,21 +3,27 @@ package com.scm.scm10.services.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.scm.scm10.Repository.ContactsRepo;
+import com.scm.scm10.controller.ContactController;
 import com.scm.scm10.entity.Contacts;
+import com.scm.scm10.entity.User;
 import com.scm.scm10.helper.ResourceNotFoundExeception;
 import com.scm.scm10.services.ContactService;
 
 @Service
 public class ContactsServiceimpl implements ContactService {
 
+	Logger logger=org.slf4j.LoggerFactory.getLogger(ContactsServiceimpl.class);
 	@Autowired
 	private ContactsRepo contactrepo;
 	@Override
 	public Contacts save(Contacts contact) {
+		
+		
 		String contactid=UUID.randomUUID().toString();
 		contact.setId(contactid);
 		contactrepo.save(contact);
@@ -55,9 +61,15 @@ public class ContactsServiceimpl implements ContactService {
 	}
 
 	@Override
-	public List<Contacts> getUser(String contactid) {
+	public List<Contacts> getByUserId(String contactid) {
 		
 		return contactrepo.findByUserId(contactid);
+	}
+
+	@Override
+	public List<Contacts> getByUser(User user) {
+		
+		return contactrepo.findByUser(user);
 	}
 	
 	

@@ -2,6 +2,8 @@ package com.scm.scm10.userform;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.scm.scm10.validators.ValidFile;
+
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -40,6 +42,7 @@ public class ContactForm {
 	
 	private String linkedinlink;
 	
+	@ValidFile
 	private MultipartFile contactimage;
 
 	@Override

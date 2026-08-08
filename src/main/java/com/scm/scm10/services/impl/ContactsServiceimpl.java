@@ -5,6 +5,9 @@ import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.scm.scm10.Repository.ContactsRepo;
@@ -67,9 +70,11 @@ public class ContactsServiceimpl implements ContactService {
 	}
 
 	@Override
-	public List<Contacts> getByUser(User user) {
+	public Page<Contacts> getByUser(User user,int page,int size,String sortby,String direction) {
 		
-		return contactrepo.findByUser(user);
+		Sort sort=direction.equals("desc")?Sort.by(sortby).descending():Sort.by(sortby).ascending();
+		var pageable=PageRequest.of(page,size,sort);
+		return contactrepo.findByUser(user,pageable);
 	}
 	
 	
